@@ -10,4 +10,8 @@ defmodule BridgeWeb.TableChannel do
     push socket, "user_id", %{user_id: socket.assigns[:user_id]}
     {:noreply, socket}
   end
+
+  def handle_info(_, socket) do
+    {:noreply, socket}
+  end
 end
