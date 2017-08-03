@@ -1,3 +1,11 @@
-// for phoenix_html support, including form and button helpers
-// copy the following scripts into your javascript bundle:
-// * https://raw.githubusercontent.com/phoenixframework/phoenix_html/v2.10.0/priv/static/phoenix_html.js
+let socket = new Phoenix.Socket("/socket", {params: {token: window.userToken}})
+
+socket.connect()
+
+let channel = socket.channel("table:test", {})
+
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("err", resp => { console.log("Failed to join", resp) })
+
+channel.on("user_id", payload => { console.log(payload) })
