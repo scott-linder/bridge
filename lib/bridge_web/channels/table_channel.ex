@@ -3,11 +3,11 @@ defmodule BridgeWeb.TableChannel do
 
   def join("table:" <> table_id, _params, socket) do
     send self(), :after_join
+    Bridge.TableSupervisor.ensure_table(table_id)
     {:ok, assign(socket, :table_id, table_id)}
   end
 
   def handle_info(:after_join, socket) do
-    push socket, "user_id", %{user_id: socket.assigns[:user_id]}
     {:noreply, socket}
   end
 

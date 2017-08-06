@@ -12,6 +12,8 @@ defmodule Bridge.Application do
       supervisor(BridgeWeb.Endpoint, []),
       # Start your own worker by calling: Bridge.Worker.start_link(arg1, arg2, arg3)
       # worker(Bridge.Worker, [arg1, arg2, arg3]),
+      supervisor(Bridge.TableSupervisor, []),
+      supervisor(Registry, [[keys: :unique, name: Bridge.TableRegistry]]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
